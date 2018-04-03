@@ -1,0 +1,24 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+   name: atlas-nexus
+   namespace: atlas-udd
+spec:
+   replicas: 1
+   template:
+      metadata:
+         labels:
+            app: atlas-nexus
+      spec:
+         containers:
+            - image: atlas_udd/nexus:1.0
+              name: atlas-nexus
+              ports:
+              - containerPort: 8081
+              - containerPort: 5000
+              volumeMounts:
+                 - mountPath: /nexus-data
+                   name: nexus-data-volume
+         volumes:
+            - name: nexus-data-volume
+              emptyDir: {}
